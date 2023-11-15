@@ -16,9 +16,9 @@ export class LoginComponent {
   password: string = '';
   onLogin(): void {
     const loggedIn = this.authService.login(this.email, this.password);
-    console.log(loggedIn);
     if (loggedIn) {
-      this.router.navigateByUrl('/dashboard/products');
+      this.authService.getUser();
+      this.router.navigateByUrl('dashboard/products');
     } else {
     }
   }

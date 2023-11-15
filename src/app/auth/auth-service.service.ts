@@ -1,10 +1,11 @@
+import { jsDocComment } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private userKey = 'user';
+  userKey = 'user';
   user = {
     id: 1,
     nombre: 'Admin',
@@ -12,15 +13,17 @@ export class AuthServiceService {
     rol: 'admin',
   };
   user2 = {
-    id: 1,
+    id: 2,
     nombre: 'julian',
     email: 'julian@gmail.com',
     rol: 'custom',
   };
-
-  login(email: string, password: string): boolean {
+  constructor() {
     localStorage.setItem('user', JSON.stringify(this.user));
     localStorage.setItem('user2', JSON.stringify(this.user2));
+  }
+
+  login(email: string, password: string): boolean {
     if (email === 'admin@gmail.com' && password === 'admin') {
       return true;
     } else {
@@ -32,7 +35,8 @@ export class AuthServiceService {
   }
 
   getUser() {
-    const userString = sessionStorage.getItem(this.userKey);
-    return userString ? JSON.parse(userString) : null;
+    const userString = JSON.parse(localStorage.getItem('user')!);
+    console.log(userString);
+    return userString;
   }
 }
