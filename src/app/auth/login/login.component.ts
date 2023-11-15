@@ -16,9 +16,12 @@ export class LoginComponent {
   password: string = '';
   onLogin(): void {
     const loggedIn = this.authService.login(this.email, this.password);
-    if (loggedIn) {
+    if (loggedIn.rol == 'admin') {
       this.authService.getUser();
-      this.router.navigateByUrl('dashboard/products');
+      this.router.navigate(['dashboard/products']);
+    } else if (loggedIn.rol == 'custom') {
+      this.authService.getUser();
+      this.router.navigate(['dashboardC/custom']);
     } else {
     }
   }

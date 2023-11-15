@@ -6,9 +6,21 @@ import { ProductosComponent } from './productos/productos/productos.component';
 import { PromocionesComponent } from './promociones/promociones/promociones.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AdminGuard } from './core/guard/admin.guard';
+import { DashboardCustomComponent } from './dashboard/dashboard-custom/dashboard-custom.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'dashboardC',
+    component: DashboardCustomComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'custom', component: DashboardCustomComponent },
+      { path: '', redirectTo: '/dashboardCustom', pathMatch: 'full' },
+    ],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

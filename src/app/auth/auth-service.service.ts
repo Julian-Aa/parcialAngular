@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthServiceService {
   userKey = 'user';
+  userString!: any;
   user = {
     id: 1,
     nombre: 'Admin',
@@ -23,12 +24,13 @@ export class AuthServiceService {
     localStorage.setItem('user2', JSON.stringify(this.user2));
   }
 
-  login(email: string, password: string): boolean {
+  login(email: string, password: string): any {
     if (email === 'admin@gmail.com' && password === 'admin') {
-      return true;
-    } else {
-      return false;
+      this.userString = JSON.parse(localStorage.getItem('user')!);
+    } else if (email === 'julian@gmail.com' && password === 'julian') {
+      this.userString = JSON.parse(localStorage.getItem('user2')!);
     }
+    return this.userString;
   }
   logout() {
     sessionStorage.removeItem(this.userKey);
@@ -36,6 +38,11 @@ export class AuthServiceService {
 
   getUser() {
     const userString = JSON.parse(localStorage.getItem('user')!);
+    console.log(userString);
+    return userString;
+  }
+  getUserC() {
+    const userString = JSON.parse(localStorage.getItem('user2')!);
     console.log(userString);
     return userString;
   }

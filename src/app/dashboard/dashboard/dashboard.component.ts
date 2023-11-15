@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServiceService } from 'src/app/auth/auth-service.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-dashboard',
@@ -6,9 +7,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  userName: string = 'Usuario Ejemplo';
-
-  constructor() {}
+  constructor(private AuthService: AuthServiceService) {}
+  userName: string = this.AuthService.getUser().nombre;
 
   ngOnInit(): void {
     this.showWelcomeMessage();
