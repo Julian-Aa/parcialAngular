@@ -1,37 +1,38 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthServiceService {
-  private isLoggedIn: boolean = false;
-
-  private users = [
-    { email: 'admin@example.com', password: 'admin', role: 'admin' },
-    { email: 'cliente@example.com', password: 'cliente', role: 'cliente' },
-  ];
+  private userKey = 'user';
+  user = {
+    id: 1,
+    nombre: 'Admin',
+    email: 'admin@gmail.com',
+    rol: 'admin',
+  };
+  user2 = {
+    id: 1,
+    nombre: 'julian',
+    email: 'julian@gmail.com',
+    rol: 'custom',
+  };
 
   login(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-      this.isLoggedIn = true;
+    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.setItem('user2', JSON.stringify(this.user2));
+    if (email === 'admin@gmail.com' && password === 'admin') {
       return true;
+    } else {
+      return false;
     }
-
-    return false;
+  }
+  logout() {
+    sessionStorage.removeItem(this.userKey);
   }
 
-  logout(): void {
-    this.isLoggedIn = false;
-  }
-
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
-  }
-
-  getUserRole(): string | null {
-    const user = this.users.find(u => u.role && this.isLoggedIn);
-    return user ? user.role : null;
+  getUser() {
+    const userString = sessionStorage.getItem(this.userKey);
+    return userString ? JSON.parse(userString) : null;
   }
 }
