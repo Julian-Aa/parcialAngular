@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { ProductosModule } from './productos/productos.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { SidenavComponent } from './sidenav/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,6 @@ import { DashboardModule } from './dashboard/dashboard.module';
     ReactiveFormsModule,
     AuthModule,
     ProductosModule,
-    DashboardModule 
   ],
   providers: [],
   bootstrap: [AppComponent],
